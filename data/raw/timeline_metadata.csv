@@ -1,0 +1,4 @@
+year,Year that an event concerning the monument occurred 
+change,"Any change concerning the monument. (i.e expansion, creation, degradation)"
+notes,Relevant notes concerning the monument or changes to the monument
+shapefile_name,Name of the shapefile that demonstartes the boundaries of the time

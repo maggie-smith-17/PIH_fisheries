@@ -1,0 +1,10 @@
+year,change,notes ,shapefile_name
+2009,creation,"President Bush establishes monument by proclamation. ~86,000 square miles were to be protected",PIH_MNM_2009_creation.gpkg
+2009,fishing ban established,"Upon creation, commercial fishing was prohibited within boundaries.",PIH_MNM_2009_fishing_ban.gpkg
+2011,boundary clarification,Technical update; not a proclamation. Clarified how zones were defined and managed.,PIH_MNH_2011_boundary.gpkg
+2014,expansion,"President Obama expands the monument to ~490,000 square miles to protect deep sea habitats and seamounts",PIH_MNM_2014_expansion.gpkg
+2014,expansion reinforces ban,Further restricted commercial fishing,PIH_MNM_2014_fishing_restriction.gpkg
+2025,policy shift ,Western Pacific Regional Fishery Management Council votes to support President Trump's push to allow commercial fishing in the monument.,PIH_MNM_2025_fishing_policy.gpkg
+2025,fishing resumes,longline tuna vessels entered reopened zones. Active fishing between April 25 and May 4.,PIH_MNM_2025_fishing_activity.gpkg
+2025,legal challenge ,Conservation groups file a lawsuit arguing President Trump overstepped his authority. It was ruled he had exceeded his authority under the Antiquities Act.,PIH_MNM_2025_lawsuit.gpkg
+2025,court reinstates ban,Court rules that the rollback was unlawful. Full protections were restored.,PIH_MNM_2025_fishing_ban_restored.gpkg
