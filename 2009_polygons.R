@@ -55,7 +55,7 @@ primnm_boxes <- rbind(wake, howland_baker, jarvis, johnston, palmyra_kingman)
 
 #looking
 
-install.packages("mapview")  # if not already installed
+install.packages("mapview")  
 library(mapview)
 
 mapview(primnm_boxes)
