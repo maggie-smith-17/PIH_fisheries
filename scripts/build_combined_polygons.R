@@ -37,7 +37,6 @@ pols <- bind_rows(pol1, pol2, pol3, pol4) |>
 
 ## Another step ----------------------------------------------------------------
 ggplot(pols) +
-  geom_sf(data = st_union(pols), col = "red") +
   geom_sf() + 
   facet_wrap(~period) +
   coord_sf(crs = "EPSG:8859")
