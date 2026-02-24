@@ -31,7 +31,6 @@
 # =============================================================================
 
 # --- Load packages -----------------------------------------------------------
-install.packages("here")
 library(here)       # consistent paths relative to project root
 library(tidyverse)  # data manipulation and piping
 library(sf)         # simple features: read/write/transform spatial data
@@ -68,7 +67,7 @@ my_erase <- function(x, y) {
 # boundaries, not 2014. The variable is named mpa_2014 for consistency with
 # the intended design, but the data are wrong until the file is replaced or
 # the path is updated. Rerun this script after fixing the input data.
-mpa_2014 <- st_read("data/processed/WDPA_Polygons/WDPA_WDOECM_Dec2025_Public_400011_shp-polygons.shp") |>
+mpa_2014 <- st_read("data/processed/primnm_2014_polygons.gpkg") |>
   st_transform(crs = "EPSG:8859")  # WGS 84 / pseudo-Mercator for buffer in metres
 mpa_2014 <- mpa_2014 |> 
   st_cast("POLYGON") |> 
@@ -98,7 +97,10 @@ mpa_2025 <- mpa_2014 |>
   group_by(name) |>
   group_split() |>
   map_dfr(my_erase, y = buffered_linestring) |>
-  st_transform(crs = "EPSG:4326")
+  st_transform(crs = "EPSG:4326") |> 
+  mutate(change = "Reopoened",
+         period = "Trump reopening") |> 
+  select(year, change, period)
 
 # --- Visual check (test only) ------------------------------------------------
 # This map is for checking that layers look correct. Gray = original input,
@@ -109,6 +111,8 @@ ggplot() +
   geom_sf(data = mpa_2025, fill = "blue", alpha = 0.5)
 
 # --- Write output -----------------------------------------------------------
-st_write(mpa_2025, here("data/processed/PRIMNM_2025_polygons.gpkg"))
+write_sf(obj = mpa_2025,
+         dsn = here("data/processed/primnm_2025_polygons.gpkg"),
+         delete_dsn = T)
 
 

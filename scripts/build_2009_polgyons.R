@@ -24,6 +24,8 @@ create_box <- function(name, lat1, lon1, lat2, lon2) {
   )
 }
 
+# All coordinates come from: https://www.federalregister.gov/documents/2009/01/12/E9-500/establishment-of-the-pacific-remote-islands-marine-national-monument
+
 # Wake Island
 wake <- create_box(
   "Wake Island",
@@ -42,7 +44,7 @@ howland_baker <- create_box(
 jarvis <- create_box(
   "Jarvis Island",
   dms_to_dd(0, 28, 39, "N"),  dms_to_dd(160, 50, 52, "W"),
-  dms_to_dd(1, 13, 15, "S"),  dms_to_dd(168, 37, 32, "W")
+  dms_to_dd(1, 13, 15, "S"),  dms_to_dd(159, 8, 53, "W")
 )
 
 # Johnston Atoll
@@ -66,9 +68,16 @@ primnm_boxes <- rbind(
   jarvis,
   johnston,
   palmyra_kingman
-)
+) |> 
+  group_by(year = 2009) |> 
+  summarize(.groups = "drop") |> 
+  mutate(change = "Created",
+         period = "Bush creation") |> 
+  select(year, change, period)
 
 
-mapview(primnm_boxes)
+write_sf(obj = primnm_boxes,
+         dsn = here("data/processed/primnm_2009_polygons.gpkg"),
+         delete_dsn = T)
 
 
