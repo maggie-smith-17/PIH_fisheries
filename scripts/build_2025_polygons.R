@@ -81,6 +81,9 @@ mpa_2014 <- mpa_2014 |>
 # 3. For each monument, intersect that buffer with the same monument's polygon
 #    so the buffer is clipped to the monument extent (my_intersect).
 # Result: buffered_linestring = the 50 nm band around each monument boundary.
+# This needs to be done only for Wake, Johnston, and Jarvis. Palmyra and Kingston should be left as they are.
+# The Secretary of Defense shall continue to manage Wake Island and Johnston Atoll as specified in Proclamation 8336.’ (Bush proclamation)
+# “The president’s proclamation, issued the same day as his EO 14276, basically opens up the waters between 50 and 200 miles around the Pacific Remote Islands Monument – the islands of Wake, Johnston, and Jarvis – for commercial fishing,” says Eric Kingma, executive director of the Hawaii Longline Association (HLA).
 buffered_linestring <- mpa_2014 |>
   st_cast("MULTILINESTRING") |>
   st_cast("LINESTRING") |>
