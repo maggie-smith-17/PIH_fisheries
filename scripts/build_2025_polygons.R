@@ -76,15 +76,24 @@ mpa_2014 <- mpa_2014 |>
 
 
 # --- Build the 50 nautical mile "ring" per monument --------------------------
+# This needs to be done only for Wake, Johnston, and Jarvis based on the below:
+# The Secretary of Defense shall continue to manage Wake Island and Johnston
+# Atoll as specified in Proclamation 8336.’ (Bush proclamation)
+# “The president’s proclamation, issued the same day as his EO 14276, basically
+# opens up the waters between 50 and 200 miles around the Pacific Remote Islands
+# Monument – the islands of Wake, Johnston, and Jarvis – for commercial fishing,”
+# says Eric Kingma, executive director of the Hawaii Longline Association (HLA).
+# 
+# The steps are:
 # 1. Convert polygon boundaries to lines (LINESTRING).
 # 2. Buffer by 50 nm (50 * 1854 metres per nautical mile).
 # 3. For each monument, intersect that buffer with the same monument's polygon
 #    so the buffer is clipped to the monument extent (my_intersect).
 # Result: buffered_linestring = the 50 nm band around each monument boundary.
-# This needs to be done only for Wake, Johnston, and Jarvis. Palmyra and Kingston should be left as they are.
-# The Secretary of Defense shall continue to manage Wake Island and Johnston Atoll as specified in Proclamation 8336.’ (Bush proclamation)
-# “The president’s proclamation, issued the same day as his EO 14276, basically opens up the waters between 50 and 200 miles around the Pacific Remote Islands Monument – the islands of Wake, Johnston, and Jarvis – for commercial fishing,” says Eric Kingma, executive director of the Hawaii Longline Association (HLA).
-buffered_linestring <- mpa_2014 |>
+buffered_linestring <- mpa_2014 %>%
+  mutate(area = st_area(.)) |> 
+  arrange(desc(area)) |> 
+  head(3) |> 
   st_cast("MULTILINESTRING") |>
   st_cast("LINESTRING") |>
   st_buffer(dist = 50 * 1854) |>
@@ -101,7 +110,8 @@ mpa_2025 <- mpa_2014 |>
   group_split() |>
   map_dfr(my_erase, y = buffered_linestring) |>
   st_transform(crs = "EPSG:4326") |> 
-  mutate(change = "Reopoened",
+  mutate(year = 2025,
+         change = "Reopoened",
          period = "Trump reopening") |> 
   select(year, change, period)
 

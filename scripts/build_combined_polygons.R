@@ -38,7 +38,7 @@ pols <- bind_rows(pol1, pol2, pol3, pol4) |>
 ## Another step ----------------------------------------------------------------
 ggplot(pols) +
   geom_sf() + 
-  facet_wrap(~period) +
+  facet_wrap(~period, nrow = 1) +
   coord_sf(crs = "EPSG:8859")
 
 # EXPORT #######################################################################
