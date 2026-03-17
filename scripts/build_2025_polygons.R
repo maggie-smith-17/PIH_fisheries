@@ -113,7 +113,8 @@ mpa_2025 <- mpa_2014 |>
   mutate(year = 2025,
          change = "Reopoened",
          period = "Trump reopening") |> 
-  select(year, change, period)
+  group_by(year, change, period) |> 
+  summarize(.groups = "drop")
 
 # --- Visual check (test only) ------------------------------------------------
 # This map is for checking that layers look correct. Gray = original input,

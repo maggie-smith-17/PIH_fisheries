@@ -18,8 +18,6 @@ library(tidyverse)
 library(sf)
 
 ## Load data -------------------------------------------------------------------
-timeline <- read_csv(file = here("data/raw/timeline.csv"))
-
 pol1 <- read_sf(here("data/processed/primnm_2009_polygons.gpkg"))
 pol2 <- read_sf(here("data/processed/primnm_2014_polygons.gpkg"))
 pol3 <- read_sf(here("data/processed/PRIMNM_2025_polygons.gpkg"))
