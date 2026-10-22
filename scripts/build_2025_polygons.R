@@ -86,7 +86,7 @@ mpa_2014 <- mpa_2014 |>
 # 
 # The steps are:
 # 1. Convert polygon boundaries to lines (LINESTRING).
-# 2. Buffer by 50 nm (50 * 1854 metres per nautical mile).
+# 2. Buffer by 150 nm (50 * 1854 metres per nautical mile).
 # 3. For each monument, intersect that buffer with the same monument's polygon
 #    so the buffer is clipped to the monument extent (my_intersect).
 # Result: buffered_linestring = the 50 nm band around each monument boundary.
@@ -96,7 +96,7 @@ buffered_linestring <- mpa_2014 %>%
   head(3) |> 
   st_cast("MULTILINESTRING") |>
   st_cast("LINESTRING") |>
-  st_buffer(dist = 50 * 1854) |>
+  st_buffer(dist = 150 * 1854) |>
   group_by(name) |>
   group_split() |>
   map_dfr(my_intersect, y = mpa_2014)
@@ -118,7 +118,7 @@ mpa_2025 <- mpa_2014 |>
 
 # --- Visual check (test only) ------------------------------------------------
 # This map is for checking that layers look correct. Gray = original input,
-# red = 50 nm buffer, blue = 2025 result. It is NOT the final deliverable.
+# red = 150 nm buffer, blue = 2025 result. It is NOT the final deliverable.
 ggplot() +
   geom_sf(data = mpa_2014, fill = "gray", alpha = 0.5) +
   geom_sf(data = buffered_linestring, fill = "red", alpha = 0.5) +
